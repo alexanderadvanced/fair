@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rental object list{% endblock %}
+
+{% block navigation %}
+    <a href="{{ path('rental_object_edit_object') }}" class="btn btn-outline-secondary">Add rental object</a>
+{% endblock %}
+
+{% block body %}
+        {% for object in objects %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div>{{ object.address }}</div>
+                            <small class="text-secondary">{{ object.country }}, {{ object.city }}</small>
+                        </div>
+                        <div class="col-6">
+                            <div>{{ object.name }}</div>
+{#                            <small class="text-secondary"></small>#}
+                        </div>
+                        <div class="col-1">
+                            <a href="{{ path('rental_object_view', {'id': object.id}) }}"
+                               class="btn btn-outline-secondary btn-block">View</a>
+                        </div>
+                        <div class="col-1">
+                            <a href="{{ path('rental_object_edit_object', {'id': object.id}) }}"
+                               class="btn btn-outline-secondary btn-block">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+{% endblock %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('libs/bootstrap4/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/jquery/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/jquery/jquery-ui.theme.css') }}">
+    {% block stylesheets %}{% endblock %}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url(/background.jpg) no-repeat center;
+            background-size: 150%;
+        }
+        .ui-datepicker{
+            z-index:9999 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container-xl my-5">
+    <div class="mb-4">
+        {% block navigation %}{% endblock %}
+    </div>
+    {% block body %}{% endblock %}
+</div>
+</body>
+<script src="{{ asset('libs/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('libs/jquery/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('libs/bootstrap4/js/bootstrap.bundle.js') }}"></script>
+{% block javascripts %}{% endblock %}
+<script>
+    $(function () {
+
+        $('#rental-object-add-contract').on('click', function () {
+            $('#rental-object-contract-form-container').slideToggle(200);
+        })
+
+        $('#rental-contract-form-add-resident').on('click', function () {
+            let item = $('#rental-contract-form-resident-template').html();
+            $('#rental-contract-form-residents').append(item);
+            initRemovePersonButtons();
+        }).click();
+
+        $('#rental-contract-form-add-party').on('click', function () {
+            let item = $('#rental-contract-form-party-template').html();
+            $('#rental-contract-form-parties').append(item);
+            initRemovePersonButtons();
+        }).click();
+
+        $('[data-date-picker]').datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+
+        function initRemovePersonButtons() {
+            $('[data-rental-contract-form-person-remove]').off('click').on('click', function () {
+                $(this).parent().parent().remove();
+            })
+        }
+
+        initRemovePersonButtons();
+
+    })
+</script>
+</html>

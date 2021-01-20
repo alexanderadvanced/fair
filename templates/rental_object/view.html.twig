@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rental object list{% endblock %}
+
+{% block navigation %}
+    <a href="{{ path('rental_object_list') }}" class="btn btn-outline-secondary">&larr; Rental objects list</a>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-5">
+                    <div>{{ object.address }}</div>
+                    <small class="text-secondary">{{ object.country }}, {{ object.city }}</small>
+                </div>
+                <div class="col-6">
+                    <div>{{ object.name }}</div>
+                </div>
+                <div class="col-1">
+                     <a href="{{ path('rental_object_edit_object', {'id': object.id}) }}"
+                     class="btn btn-outline-secondary btn-block">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="text-right mt-5 mb-3">
+            <a id="rental-object-add-contract" class="btn btn-outline-secondary">Add new contract</a>
+        </div>
+
+    <div {{ openForm ? '' : 'style="display:none"' }} id="rental-object-contract-form-container">
+        {% include 'rental_contract/form.html.twig' %}
+    </div>
+
+    <div>
+        {% for contract in object.rentalContracts %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-10">
+                            {{ contract.startAt|date }} — {{ contract.finishAt|date }}
+                        </div>
+                        <div class="col-2 text-right">
+                            <a href="{{ path('rental_object_edit_contract', {'id': contract.id}) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <small class="text-secondary">Residents:</small>
+                    <div class="mb-4">{{ contract.residents|join(', ')|default('No residents attached') }}</div>
+                    <small class="text-secondary">Contract parties:</small>
+                    <div class="mb-4">{{ contract.parties|join(', ')|default('No parties attached') }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

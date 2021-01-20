@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block navigation %}
+    <a href="{{ path('rental_object_view', {'id': contract.rentalObject.id }) }}" class="btn btn-outline-secondary">&larr; Rental object</a>
+{% endblock %}
+
+{% block body %}
+    {% include 'rental_contract/form.html.twig' with {'rentalContractForm': form  } %}
+{% endblock %}

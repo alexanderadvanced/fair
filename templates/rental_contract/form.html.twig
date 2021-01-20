@@ -1,0 +1,69 @@
+{{ form_start(rentalContractForm) }}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div>{{ form_row(rentalContractForm.rentalObject) }}</div>
+        <div class="row">
+            <div class="col-4">{{ form_row(rentalContractForm.startAt) }}</div>
+            <div class="col-4">{{ form_row(rentalContractForm.finishAt) }}</div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Residents:</label>
+                <div id="rental-contract-form-residents">
+                    {% for resident in contract.residents ?? [] %}
+                        <div class="input-group mb-2">
+                            <input type="text" value="{{ resident }}" class="form-control" placeholder="John Doe" name="rental_contract[residents][]">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" data-rental-contract-form-person-remove>Remove
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="btn btn-sm btn-outline-secondary" id="rental-contract-form-add-resident">Add a person</div>
+            </div>
+            <div class="col-6">
+                <label>Contract parties:</label>
+                <div id="rental-contract-form-parties">
+                    {% for party in contract.parties ?? [] %}
+                        <div class="input-group mb-2">
+                            <input type="text" value="{{ party }}" class="form-control" placeholder="John Doe" name="rental_contract[parties][]">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" data-rental-contract-form-person-remove>Remove
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="btn btn-sm btn-outline-secondary" id="rental-contract-form-add-party">Add a person</div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <input type="submit" class="btn btn-secondary" value="Save contract">
+    </div>
+</div>
+
+{{ form_end(rentalContractForm) }}
+
+<div hidden id="rental-contract-form-resident-template">
+    <div class="input-group mb-2">
+        <input type="text" class="form-control" placeholder="John Doe" name="rental_contract[residents][]">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" data-rental-contract-form-person-remove>Remove
+            </button>
+        </div>
+    </div>
+</div>
+
+<div hidden id="rental-contract-form-party-template">
+    <div class="input-group mb-2">
+        <input type="text" class="form-control" placeholder="John Doe" name="rental_contract[parties][]">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" data-rental-contract-form-person-remove>Remove
+            </button>
+        </div>
+    </div>
+</div>
